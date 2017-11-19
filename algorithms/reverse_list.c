@@ -1,3 +1,6 @@
+// reverse a linked list
+// in http://www.sunlands.com/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -86,6 +89,8 @@ int main()
     print_list(head);
     head = reverse(head);
     print_list(head);
+
+    // TODO: release the malloc memory
 
     return 0;
 }
