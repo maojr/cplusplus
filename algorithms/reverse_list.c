@@ -19,7 +19,7 @@ void print_list(Node* list)
     printf("\n");
 }
 
-// sort the list
+// reverse the list in place
 void reverse_list(Node** head)
 {
     // Node* cur  = *head;
@@ -44,7 +44,7 @@ void reverse_list(Node** head)
     }
 }
 
-// sort list, return the head
+// reverse the list, return the head
 Node* reverse(Node* head)
 {
     if (head == NULL)
