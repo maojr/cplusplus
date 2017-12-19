@@ -27,10 +27,12 @@ int recursive_binary_search(int* arr, int start, int end, int val)
     int mid = start + (end - start) / 2;
     if (arr[mid] == val)
         return mid;
-    if (arr[mid] > val)
+    else if (arr[mid] > val)
         return recursive_binary_search(arr, start, mid - 1, val);
-    if (arr[mid] < val)
+    else if (arr[mid] < val)
         return recursive_binary_search(arr, mid + 1, end, val);
+
+    return -1;
 }
 
 int main()
