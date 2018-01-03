@@ -6,7 +6,8 @@
 #include <iostream>
 using namespace std;
 
-// Not thread safe
+
+// Now thread safe
 class Singleton
 {
 public:
