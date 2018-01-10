@@ -1,6 +1,13 @@
+#include <stdlib.h>
+
 #include <vector>
 #include <iostream>
 #include <algorithm>
+
+#include <gtest/gtest.h>
+
+#define VECTOR_SIZE 5000000
+#define K           3
 
 // use a min heap
 std::vector<int> topk(std::vector<int> v, int k) {
@@ -77,12 +84,65 @@ std::vector<int> topk_max_heap(std::vector<int> v, int k) {
     return result;
 }
 
-int main(int argc, char const *argv[])
+std::vector<int> vec;
+std::vector<int> topk_vec;
+std::vector<int> get_vector() {
+    if (vec.size() == 0)
+        for (int i = 0; i < VECTOR_SIZE; ++i)
+            vec.push_back(rand());
+    std::cout << vec.size() << std::endl;
+    return vec;
+}
+std::vector<int> top_vector() {
+    if (topk_vec.size() == 0) {
+        topk_vec = vec;
+        std::sort(topk_vec.begin(), topk_vec.end(), std::greater<int>());
+        topk_vec.resize(K);
+    }
+    return topk_vec;
+}
+void print_vector(const std::vector<int>& v) {
+    for (int i = 0; i < v.size(); ++i)
+        std::cout << v[i] << '\t';
+    std::cout << std::endl;
+}
+
+TEST(TOPK, topk) {
+    std::vector<int> vec1 = get_vector();
+    std::vector<int> top1 = top_vector();
+    std::vector<int> res1 = topk(vec1, K);
+    std::sort(res1.begin(), res1.end(), std::greater<int>());
+    ASSERT_TRUE(res1 == top1);
+}
+
+TEST(TOPK, quick_topk) {
+    std::vector<int> vec2 = get_vector();
+    std::vector<int> top2 = top_vector();
+    std::vector<int> res2 = quick_topk(vec2, K);
+    std::sort(res2.begin(), res2.end(), std::greater<int>());
+    ASSERT_TRUE(res2 == top2);
+}
+
+TEST(TOPK, topk_min_heap) {
+    std::vector<int> vec3 = get_vector();
+    std::vector<int> top3 = top_vector();
+    std::vector<int> res3 = topk_min_heap(vec3, K);
+    std::sort(res3.begin(), res3.end(), std::greater<int>());
+    ASSERT_TRUE(res3 == top3);
+}
+
+TEST(TOPK, topk_max_heap) {
+    std::vector<int> vec4 = get_vector();
+    std::vector<int> top4 = top_vector();
+    std::vector<int> res4 = topk_max_heap(vec4, K);
+    std::sort(res4.begin(), res4.end(), std::greater<int>());
+    ASSERT_TRUE(res4 == top4);
+}
+
+int main(int argc, char** argv)
 {
-    std::vector<int> v = {3, 2, 6, 9, 0, 1, 8, 4, 5, 7};
-    // std::vector<int> result = topk(v, 2);
-    std::vector<int> result = quick_topk(v, 3);
-    for (const auto & val : result)
-        std::cout << val << " ";
-    return 0;
+    get_vector();
+    top_vector();
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
