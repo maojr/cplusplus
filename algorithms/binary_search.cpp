@@ -5,7 +5,7 @@ int binary_search(int* a, int length, int val)
     int start = 0;
     int mid = 0;
     int end = length - 1;
-    while(start <= end)
+    while (start <= end)
     {
         mid = (start + end) / 2;
         if(a[mid] == val)
@@ -42,7 +42,7 @@ int main()
     // int result = binary_search(a, sizeof(a)/sizeof(a[0]), 110);
     int result = recursive_binary_search(a, 0, 6, 9);
 
-    if(result == -1)
+    if (result == -1)
         std::cout << "Not find!" << std::endl;
     else
         std::cout << "Find! index = " << result << std::endl;
