@@ -78,6 +78,13 @@ std::vector<int> topk_max_heap(std::vector<int> v, int k) {
   return result;
 }
 
+std::vector<int> partial_sort_topk(std::vector<int> v, int k) {
+  std::vector<int> result;
+  std::partial_sort(v.begin(), v.begin() + k, v.end(), std::greater<int>());
+  std::copy_n(v.begin(), k, std::back_inserter(result));
+  return result;
+}
+
 std::vector<int> vec;
 std::vector<int> topk_vec;
 std::vector<int> get_vector() {
@@ -127,6 +134,14 @@ TEST(TOPK, topk_max_heap) {
   std::vector<int> vec4 = get_vector();
   std::vector<int> top4 = top_vector();
   std::vector<int> res4 = topk_max_heap(vec4, K);
+  std::sort(res4.begin(), res4.end(), std::greater<int>());
+  ASSERT_TRUE(res4 == top4);
+}
+
+TEST(TOPK, partial_sort_topk) {
+  std::vector<int> vec4 = get_vector();
+  std::vector<int> top4 = top_vector();
+  std::vector<int> res4 = partial_sort_topk(vec4, K);
   std::sort(res4.begin(), res4.end(), std::greater<int>());
   ASSERT_TRUE(res4 == top4);
 }
