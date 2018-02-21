@@ -85,17 +85,16 @@ std::vector<int> partial_sort_topk(std::vector<int> v, int k) {
   return result;
 }
 
-std::vector<int> vec;
-std::vector<int> topk_vec;
 std::vector<int> get_vector() {
+  static std::vector<int> vec;
   if (vec.size() == 0)
     for (int i = 0; i < VECTOR_SIZE; ++i) vec.push_back(rand());
-  std::cout << vec.size() << std::endl;
   return vec;
 }
 std::vector<int> top_vector() {
+  static std::vector<int> topk_vec;
   if (topk_vec.size() == 0) {
-    topk_vec = vec;
+    topk_vec = get_vector();
     std::sort(topk_vec.begin(), topk_vec.end(), std::greater<int>());
     topk_vec.resize(K);
   }
