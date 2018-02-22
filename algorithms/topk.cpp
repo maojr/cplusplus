@@ -85,6 +85,13 @@ std::vector<int> partial_sort_topk(std::vector<int> v, int k) {
   return result;
 }
 
+std::vector<int> partial_sort_copy_topk(std::vector<int> v, int k) {
+  std::vector<int> result;
+  result.resize(k);
+  std::partial_sort_copy(v.begin(), v.end(), result.begin(), result.end(), std::greater<int>());
+  return result;
+}
+
 std::vector<int> get_vector() {
   static std::vector<int> vec;
   if (vec.size() == 0)
@@ -143,6 +150,14 @@ TEST(TOPK, partial_sort_topk) {
   std::vector<int> res4 = partial_sort_topk(vec4, K);
   std::sort(res4.begin(), res4.end(), std::greater<int>());
   ASSERT_TRUE(res4 == top4);
+}
+
+TEST(TOPK, partial_sort_copy_topk) {
+  std::vector<int> vec5 = get_vector();
+  std::vector<int> top5 = top_vector();
+  std::vector<int> res5 = partial_sort_copy_topk(vec5, K);
+  std::sort(res5.begin(), res5.end(), std::greater<int>());
+  ASSERT_TRUE(res5 == top5);
 }
 
 int main(int argc, char** argv) {
