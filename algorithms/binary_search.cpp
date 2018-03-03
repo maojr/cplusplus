@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 int binary_search(int* a, int length, int val) {
   int start = 0;
@@ -34,14 +35,26 @@ int recursive_binary_search(int* arr, int start, int end, int val) {
 
 int main() {
   int a[7] = {1, 3, 4, 5, 6, 7, 9};
+  int target = 9;
 
-  // int result = binary_search(a, sizeof(a)/sizeof(a[0]), 110);
-  int result = recursive_binary_search(a, 0, 6, 9);
+  int result = binary_search(a, sizeof(a)/sizeof(a[0]), target);
+  // int result = recursive_binary_search(a, 0, 6, target);
 
   if (result == -1)
-    std::cout << "Not find!" << std::endl;
+    std::cout << "Not found!" << std::endl;
   else
-    std::cout << "Find! index = " << result << std::endl;
+    std::cout << "Found! index = " << result << std::endl;
 
+  auto res = std::lower_bound(a, a+7, target);
+  if (res == a || *res != 9)
+    std::cout << "Not found!" << std::endl;
+  else
+    std::cout << "Found! index = " << (res - a) << std::endl;
+
+  bool exist = std::binary_search(a, a+7, target);
+  if (exist)
+    std::cout << "Found!" << std::endl;
+  else
+    std::cout << "Not Found!" << std::endl;
   return 0;
 }
