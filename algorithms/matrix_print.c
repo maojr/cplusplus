@@ -31,18 +31,26 @@ void spiral_print(int** arr, int m, int n)
             ++num;
             printf("%d ", arr[l1][i]);
         }
+        if (num == size)
+            break;
         for (int i = l1 + 1; i <= l2; ++i) {
             ++num;
             printf("%d ", arr[i][r2]);
         }
+        if (num == size)
+            break;
         for (int i = r2 - 1; i >= r1; --i) {
             ++num;
             printf("%d ", arr[l2][i]);
         }
+        if (num == size)
+            break;
         for (int i = l2 - 1; i >= l1 + 1; --i) {
             ++num;
             printf("%d ", arr[i][r1]);
         }
+        if (num == size)
+            break;
         l1++;
         l2--;
         r1++;
@@ -73,8 +81,8 @@ void slash_print(int** arr, int m, int n)
 
 int main()
 {
-    int m = 5;
-    int n = 5;
+    int m = 3;
+    int n = 4;
     int counter = 0;
 
     /*int arr[m][n];*/
